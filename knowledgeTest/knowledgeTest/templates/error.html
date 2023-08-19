@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block head %}
+  <style>
+    .main-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 2rem;
+}
+
+.error-message {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+  </style>
+{% endblock %}
+{% block content %}
+<h1>Access Denied</h1>
+    <p class="error-message">Sorry, you do not have permission to view this page.</p>
+    <p>Please contact Mr. Alireza Moghaddam for assistance.</p>
+{% endblock %}
+

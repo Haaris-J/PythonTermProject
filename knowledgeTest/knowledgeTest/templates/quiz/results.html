@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/quiz-results.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h1>Quiz Results</h1>
+  <div class="result-container">
+    <h2>Topic: {{ topic_name }}</h2>
+    <h3>Your score: {{ quiz.score }}/5 - {% if quiz.score == 0 or quiz.score == 1 or quiz.score == 2 %}<a href="{% url 'quiz:select_topic' %}">Please try again!</a>{% elif quiz.score == 3 %}Good job!{% elif quiz.score == 4 %}Excellent work!{% else %}You are a genius!{% endif %}</h3>
+    <h3>Questions:</h3>
+
+    <ul class="result-list">
+      {% for qq in quiz_questions %}
+      <li>
+        <h3>{{ qq.question.question_text }}</h3>
+        {% for choice in qq.question.choice_set.all %}
+        <div class="result-choice">
+          {% if choice.correct_option %}
+          <label class="result-correct">
+            {% elif choice.id == qq.user_answer.id %}
+            <label class="result-incorrect">
+              {% else %}
+              <label>
+                {% endif %}
+                <input type="radio" readonly disabled="disabled" id="choice{{ choice.pk }}" name="answer{{ qq.question.pk }}" value="{{ choice.pk }}">
+                {{ choice.option_text }}</label>
+            </div>
+            {% endfor %}
+            <br>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endblock %}

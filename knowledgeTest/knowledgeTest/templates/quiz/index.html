@@ -1,0 +1,43 @@
+    {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center mb-4" style="margin: 0">Overview</h1>
+        <div class="row" style="margin: 10px 0;">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Quiz Statistics</div>
+                    <div class="card-body">
+                        <p class="card-text">Number of quizzes taken: {{ num_quizzes }}</p>
+                        <p class="card-text">Total score: {{ total_score }}</p>
+                        <p class="card-text">Average score: {{ avg_score }}</p>
+                        <p class="card-text">Highest score: {{ highest_score }}</p>
+                        <p class="card-text">Lowest score: {{ lowest_score }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Quiz History</div>
+                    <ul class="list-group list-group-flush">
+                        {% for quiz in quizzes %}
+                            <li class="list-group-item"><a
+                                    href="{% url 'quiz:quiz_result' quiz.id %}">{{ quiz.quiz_date }} Score: {{ quiz.score }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No quizzes taken yet. <a href="{% url 'quiz:select_topic' %}">Take
+                                a quiz now!</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
